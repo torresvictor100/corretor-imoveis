@@ -30,6 +30,9 @@ public class Street {
 	@Column(name = "name", nullable = false, length = 50)
 	private String name;
 	
+	@Column(name = "cep", nullable = false, length = 50)
+	private String cep;
+	
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(name = "district_id", nullable = false)
 	private Long districtId;
@@ -101,15 +104,19 @@ public class Street {
 		this.client = client;
 	}
 
-	@Override
-	public String toString() {
-		return "Street [id=" + id + ", name=" + name + ", districtId=" + districtId + ", district=" + district
-				+ ", house=" + house + ", client=" + client + "]";
+	public String getCep() {
+		return cep;
 	}
 
-	
-	
-	
-	
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	@Override
+	public String toString() {
+		return "Street [id=" + id + ", name=" + name + ", cep=" + cep + ", districtId=" + districtId + ", district="
+				+ district + ", house=" + house + ", client=" + client + "]";
+	}
+
 
 }
