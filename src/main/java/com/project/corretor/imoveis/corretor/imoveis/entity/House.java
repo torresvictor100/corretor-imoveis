@@ -38,11 +38,29 @@ public class House {
 	@JsonIgnoreProperties({"house"})
 	private Street street;
 	
-	@Column(name = "numberHouse", nullable = false, length = 6)
+	@Column(name = "numberHouse", length = 6)
 	private String numberHouse;
 	
 	@Column(name = "complement")
 	private String complement;
+	
+	@Column(name = "Room")
+	private Integer Room;
+	
+	@Column(name = "value")
+	private Double value;
+	
+	@Column(name = "suites")
+	private Integer suites;
+	
+	@Column(name = "garage")
+	private Boolean garage;
+	
+	@Column(name = "area")
+	private Double area;
+	
+	@Column(name = "buildingarea")
+	private Double buildingarea;
 	
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
@@ -100,11 +118,63 @@ public class House {
 		this.photos = photos;
 	}
 
+	public Integer getRoom() {
+		return Room;
+	}
+
+	public void setRoom(Integer room) {
+		Room = room;
+	}
+
+	public Double getValue() {
+		return value;
+	}
+
+	public void setValue(Double value) {
+		this.value = value;
+	}
+
+	public Integer getSuites() {
+		return suites;
+	}
+
+	public void setSuites(Integer suites) {
+		this.suites = suites;
+	}
+
+	public Boolean getGarage() {
+		return garage;
+	}
+
+	public void setGarage(Boolean garage) {
+		this.garage = garage;
+	}
+
+	public Double getArea() {
+		return area;
+	}
+
+	public void setArea(Double area) {
+		this.area = area;
+	}
+
+	public Double getBuildingarea() {
+		return buildingarea;
+	}
+
+	public void setBuildingarea(Double buildingarea) {
+		this.buildingarea = buildingarea;
+	}
+
 	@Override
 	public String toString() {
 		return "House [id=" + id + ", streetId=" + streetId + ", street=" + street + ", numberHouse=" + numberHouse
-				+ ", complement=" + complement + ", photos=" + photos + "]";
+				+ ", complement=" + complement + ", Room=" + Room + ", value=" + value + ", suites=" + suites
+				+ ", garage=" + garage + ", area=" + area + ", buildingarea=" + buildingarea + ", photos=" + photos
+				+ "]";
 	}
+
+	
 
 	
 	
