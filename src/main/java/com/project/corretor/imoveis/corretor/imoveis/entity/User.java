@@ -1,8 +1,5 @@
 package com.project.corretor.imoveis.corretor.imoveis.entity;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

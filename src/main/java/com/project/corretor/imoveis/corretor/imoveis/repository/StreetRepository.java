@@ -1,5 +1,6 @@
 package com.project.corretor.imoveis.corretor.imoveis.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +14,8 @@ public interface StreetRepository extends JpaRepository<Street, Long> {
 	Optional<Street> findByName(String name);
 	
 	Optional<Street> findByCep(String name);
+	
+	List<Street> findByDistrictId(Long districtId);
 	
 
 }

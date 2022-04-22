@@ -48,7 +48,7 @@ public class House {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "house")
-    private List<Photos> professors;
+    private List<Photos> photos;
 	
 	
 
@@ -92,18 +92,18 @@ public class House {
 		this.streetId = streetId;
 	}
 
-	public List<Photos> getProfessors() {
-		return professors;
+	public List<Photos> getPhotos() {
+		return photos;
 	}
 
-	public void setProfessors(List<Photos> professors) {
-		this.professors = professors;
+	public void setPhotos(List<Photos> photos) {
+		this.photos = photos;
 	}
 
 	@Override
 	public String toString() {
 		return "House [id=" + id + ", streetId=" + streetId + ", street=" + street + ", numberHouse=" + numberHouse
-				+ ", complement=" + complement + ", professors=" + professors + "]";
+				+ ", complement=" + complement + ", photos=" + photos + "]";
 	}
 
 	
