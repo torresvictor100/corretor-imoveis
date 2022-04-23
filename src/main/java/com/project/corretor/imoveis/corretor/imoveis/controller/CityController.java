@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,7 +38,7 @@ public class CityController {
 	@ApiResponses({ @ApiResponse(code = 200, message = "OK") })
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<List<City>> findAll() {
+	public ResponseEntity<List<City>> findAll(@RequestParam(name = "name", required = false) String name) {
 		List<City> city = cityService.findAll();
 		return new ResponseEntity<>(city, HttpStatus.OK);
 	}

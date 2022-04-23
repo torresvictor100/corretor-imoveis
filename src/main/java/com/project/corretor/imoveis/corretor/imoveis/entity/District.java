@@ -27,24 +27,29 @@ public class District {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "name", nullable = false, length = 50)
+	@Column(name = "name", nullable = false, length = 30)
 	private String name;
+	
 	
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(name = "city_id", nullable = false)
 	private Long cityId;
 	
+
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "city_id", nullable = false, insertable = false, updatable = false)
-	@JsonIgnoreProperties({"district"})
+	@JsonIgnoreProperties({"districts"})
 	private City city;
 	
+
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "district")
-    private List<Street> street;
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@OneToMany(mappedBy = "district")
+    private List<Street> streets;
+	
+	
 
 	public Long getId() {
 		return id;
@@ -73,11 +78,11 @@ public class District {
 	
 
 	public List<Street> getStreet() {
-		return street;
+		return streets;
 	}
 
 	public void setStreet(List<Street> street) {
-		this.street = street;
+		this.streets = street;
 	}
 	
 
@@ -91,7 +96,7 @@ public class District {
 
 	@Override
 	public String toString() {
-		return "District [id=" + id + ", name=" + name + ", cityId=" + cityId + ", city=" + city + ", street=" + street
+		return "District [id=" + id + ", name=" + name 
 				+ "]";
 	}
 

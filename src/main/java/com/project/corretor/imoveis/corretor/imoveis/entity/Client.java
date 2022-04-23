@@ -14,7 +14,6 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -45,7 +44,6 @@ public class Client {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "street_id", nullable = false, insertable = false, updatable = false)
-	@JsonIgnoreProperties({"client"})
 	private Street street;
 	
 	@Column(name = "numberHouse", nullable = false, length = 6)
@@ -124,7 +122,7 @@ public class Client {
 	@Override
 	public String toString() {
 		return "Client [id=" + id + ", name=" + name + ", numberTelephone=" + numberTelephone + ", email=" + email
-				+ ", streetId=" + streetId + ", street=" + street + ", numberHouse=" + numberHouse + ", complement="
+				+", numberHouse=" + numberHouse + ", complement="
 				+ complement + "]";
 	}
 

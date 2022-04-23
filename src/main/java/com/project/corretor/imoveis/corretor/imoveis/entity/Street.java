@@ -37,22 +37,23 @@ public class Street {
 	@Column(name = "district_id", nullable = false)
 	private Long districtId;
 	
+
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "district_id", nullable = false, insertable = false, updatable = false)
-	@JsonIgnoreProperties({"street"})
+	@JsonIgnoreProperties({"streets"})
 	private District district;
-
+	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "street")
-    private List<House> house;
+	@OneToMany(mappedBy = "street")
+    private List<House> houses;
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "street")
-	private List<Client> client;
+	private List<Client> clients;
 	
 	
 	
@@ -89,19 +90,19 @@ public class Street {
 	}
 
 	public List<House> getHouse() {
-		return house;
+		return houses;
 	}
 
 	public void setHouse(List<House> house) {
-		this.house = house;
+		this.houses = house;
 	}
 
 	public List<Client> getClient() {
-		return client;
+		return clients;
 	}
 
 	public void setClient(List<Client> client) {
-		this.client = client;
+		this.clients = client;
 	}
 
 	public String getCep() {
@@ -114,8 +115,7 @@ public class Street {
 
 	@Override
 	public String toString() {
-		return "Street [id=" + id + ", name=" + name + ", cep=" + cep + ", districtId=" + districtId + ", district="
-				+ district + ", house=" + house + ", client=" + client + "]";
+		return "Street [id=" + id + ", name=" + name + ", cep=" + cep + "]";
 	}
 
 

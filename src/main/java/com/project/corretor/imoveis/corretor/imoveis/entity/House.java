@@ -21,54 +21,53 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @Table(name = "house")
 public class House {
-	
+
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(name = "street_id", nullable = false)
 	private Long streetId;
 	
+
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "street_id", nullable = false, insertable = false, updatable = false)
-	@JsonIgnoreProperties({"house"})
+	@JsonIgnoreProperties({"houses"})
 	private Street street;
 	
+
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@OneToMany(mappedBy = "house")
+	private List<Photos> photoss;
+
 	@Column(name = "numberHouse", length = 6)
 	private String numberHouse;
-	
-	@Column(name = "complement")
+
+	@Column(name = "complement", nullable = true)//testa para ver se foi
 	private String complement;
-	
+
 	@Column(name = "Room")
 	private Integer Room;
-	
+
 	@Column(name = "value")
 	private Double value;
-	
+
 	@Column(name = "suites")
 	private Integer suites;
-	
+
 	@Column(name = "garage")
 	private Boolean garage;
-	
+
 	@Column(name = "area")
 	private Double area;
-	
+
 	@Column(name = "buildingarea")
 	private Double buildingarea;
-	
-	
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "house")
-    private List<Photos> photos;
-	
-	
 
 	public Long getId() {
 		return id;
@@ -111,11 +110,11 @@ public class House {
 	}
 
 	public List<Photos> getPhotos() {
-		return photos;
+		return photoss;
 	}
 
 	public void setPhotos(List<Photos> photos) {
-		this.photos = photos;
+		this.photoss = photos;
 	}
 
 	public Integer getRoom() {
@@ -168,16 +167,10 @@ public class House {
 
 	@Override
 	public String toString() {
-		return "House [id=" + id + ", streetId=" + streetId + ", street=" + street + ", numberHouse=" + numberHouse
+		return "House [id=" + id + ", numberHouse=" + numberHouse
 				+ ", complement=" + complement + ", Room=" + Room + ", value=" + value + ", suites=" + suites
-				+ ", garage=" + garage + ", area=" + area + ", buildingarea=" + buildingarea + ", photos=" + photos
+				+ ", garage=" + garage + ", area=" + area + ", buildingarea=" + buildingarea 
 				+ "]";
 	}
-
-	
-
-	
-	
-
 
 }

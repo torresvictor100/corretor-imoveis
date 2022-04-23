@@ -38,7 +38,7 @@ public class Photos {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "house_id", nullable = false, insertable = false, updatable = false)
-	@JsonIgnoreProperties({"photos"})
+	@JsonIgnoreProperties({"photoss"})
 	private House house;
 
 	public Long getId() {
@@ -83,8 +83,7 @@ public class Photos {
 
 	@Override
 	public String toString() {
-		return "Photos [id=" + id + ", discretion=" + discretion + ", url=" + url + ", houseId=" + houseId + ", house="
-				+ house + "]";
+		return "Photos [id=" + id + ", discretion=" + discretion + ", url=" + url + "]";
 	}
 
 	

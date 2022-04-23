@@ -24,16 +24,16 @@ public class City {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "name", nullable = false, length = 50)
+	@Column(name = "name", unique = true, nullable = false,length = 50)
 	private String name;
 	
-	@Column(name = "state", nullable = false, length = 30)
+	@Column(name = "state", unique = true, nullable = false,length = 50)
 	private String state;
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "city")
-    private List<District> district;
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@OneToMany(mappedBy = "city")
+    private List<District> districts;
 
 	public Long getId() {
 		return id;
@@ -59,17 +59,17 @@ public class City {
 		this.state = state;
 	}
 
-	public List<District> getDistrict() {
-		return district;
+	public List<District> getDistricts() {
+		return districts;
 	}
 
-	public void setDistrict(List<District> district) {
-		this.district = district;
+	public void setDistricts(List<District> district) {
+		this.districts = district;
 	}
 
 	@Override
 	public String toString() {
-		return "City [id=" + id + ", name=" + name + ", state=" + state + ", district=" + district + "]";
+		return "City [id=" + id + ", name=" + name + ", state=" + state +"]";
 	}
 
 	

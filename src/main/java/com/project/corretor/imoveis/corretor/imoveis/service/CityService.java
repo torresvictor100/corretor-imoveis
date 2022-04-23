@@ -13,7 +13,6 @@ import com.project.corretor.imoveis.corretor.imoveis.repository.DistrictReposito
 public class CityService {
 	
 	private final CityRepository cityRepository;
-	
 	private final DistrictRepository districtRepository;
 
 	
@@ -67,7 +66,7 @@ public class CityService {
 		city = cityRepository.save(city);
 		
 		List<District> district = districtRepository.findByCityId(city.getId());
-		city.setDistrict(district);
+		city.setDistricts(district);
 
         return city;
 	}
