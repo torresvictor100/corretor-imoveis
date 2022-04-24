@@ -2,6 +2,7 @@ package com.project.corretor.imoveis.corretor.imoveis.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.corretor.imoveis.corretor.imoveis.entity.Client;
@@ -17,8 +18,9 @@ public class HouseService {
 	private final HouseRepository houseRepository;
 	private final PhotoRepository photosRepository;
 	private final StreetService streetService;
-	private final ClientService clientService;
+	private final ClientService clientService;	
 
+	
 	
 
 	public HouseService(HouseRepository houseRepository, PhotoRepository photosRepository, StreetService streetService,
@@ -42,9 +44,14 @@ public class HouseService {
 		return houseRepository.findById(id).orElse(null);
 	}
 	
+	@Autowired
+	private EmailService emailService;
+	
 	public House save(House house) {
 		house.setId(null);
-
+		
+		emailService.sendOrderConfirmationEmail(house);
+		
 		return saveInternal(house);
 	}
 	

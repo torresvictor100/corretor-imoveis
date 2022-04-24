@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.project.corretor.imoveis.corretor.imoveis.service.EmailService;
+import com.project.corretor.imoveis.corretor.imoveis.service.SmtpEmailService;
+
 @Configuration
 public class CorsConfig {
 	
@@ -19,5 +22,11 @@ public class CorsConfig {
             }
         };
     }
+	
+	@Bean
+	public EmailService emailService() {
+		return new SmtpEmailService();
+	}
+	
 
 }

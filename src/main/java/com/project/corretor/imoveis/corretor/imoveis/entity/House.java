@@ -200,10 +200,12 @@ public class House {
 
 	@Override
 	public String toString() {
-		return "House [id=" + id + ", numberHouse=" + numberHouse
-				+ ", complement=" + complement + ", Room=" + Room + ", value=" + value + ", suites=" + suites
-				+ ", garage=" + garage + ", area=" + area + ", buildingarea=" + buildingarea 
-				+ "]";
+		return "House [id=" + id + ", streetHouseId=" + streetHouseId + ", streetHouse=" + streetHouse + ", client="
+				+ client + ", numberHouse=" + numberHouse + ", photos=" + photos + ", complement=" + complement
+				+ ", Room=" + Room + ", value=" + value + ", suites=" + suites + ", garage=" + garage + ", area=" + area
+				+ ", buildingarea=" + buildingarea + "]"+ "EAE THIAGO OLHA EU AQUI TESTANDO COMO  VOU FAZER PARA ENVIAR AUTOMATICAMENTE AS CASA QUE TU CADASTRA POR KKKKKKK";
 	}
+
+	
 
 }
