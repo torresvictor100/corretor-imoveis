@@ -28,46 +28,58 @@ public class House {
 	private Long id;
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	@Column(name = "street_id", nullable = false)
-	private Long streetId;
+	@Column(name = "streethouse_id", nullable = false)
+	private Long streetHouseId;
 	
 
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "street_id", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "streethouse_id", nullable = false, insertable = false, updatable = false)
 	@JsonIgnoreProperties({"houses"})
-	private Street street;
-	
+	private Street streetHouse;
 
+	
+	
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@Column(name = "client_id", nullable = false)
+	private Long clientId;
+	
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "client_id", nullable = false, insertable = false, updatable = false)
+	@JsonIgnoreProperties({"clienthouses"})
+	private Client client;
+	
+	@Column(name = "numberHouse", length = 6)
+	private String numberHouse;
+	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@OneToMany(mappedBy = "house")
-	private List<Photos> photoss;
+	private List<Photo> photos;
 
-	@Column(name = "numberHouse", length = 6)
-	private String numberHouse;
-
-	@Column(name = "complement", nullable = true)//testa para ver se foi
+	@Column(name = "complement", nullable = true)
 	private String complement;
 
 	@Column(name = "Room")
-	private Integer Room;
+	private String Room;
 
 	@Column(name = "value")
-	private Double value;
+	private String value;
 
 	@Column(name = "suites")
-	private Integer suites;
+	private String suites;
 
 	@Column(name = "garage")
 	private Boolean garage;
 
 	@Column(name = "area")
-	private Double area;
+	private String area;
 
 	@Column(name = "buildingarea")
-	private Double buildingarea;
+	private String buildingarea;
 
 	public Long getId() {
 		return id;
@@ -77,12 +89,12 @@ public class House {
 		this.id = id;
 	}
 
-	public Street getStreet() {
-		return street;
+	public Street getStreetHouse() {
+		return streetHouse;
 	}
 
-	public void setStreet(Street street) {
-		this.street = street;
+	public void setStreetHouse(Street streetHouse) {
+		this.streetHouse = streetHouse;
 	}
 
 	public String getNumberHouse() {
@@ -101,43 +113,36 @@ public class House {
 		this.complement = complement;
 	}
 
-	public Long getStreetId() {
-		return streetId;
+	public Long getStreetHouseId() {
+		return streetHouseId;
 	}
 
-	public void setStreetId(Long streetId) {
-		this.streetId = streetId;
+	public void setStreetHouseId(Long streetId) {
+		this.streetHouseId = streetId;
 	}
 
-	public List<Photos> getPhotos() {
-		return photoss;
-	}
 
-	public void setPhotos(List<Photos> photos) {
-		this.photoss = photos;
-	}
-
-	public Integer getRoom() {
+	public String getRoom() {
 		return Room;
 	}
 
-	public void setRoom(Integer room) {
+	public void setRoom(String room) {
 		Room = room;
 	}
 
-	public Double getValue() {
+	public String getValue() {
 		return value;
 	}
 
-	public void setValue(Double value) {
+	public void setValue(String value) {
 		this.value = value;
 	}
 
-	public Integer getSuites() {
+	public String getSuites() {
 		return suites;
 	}
 
-	public void setSuites(Integer suites) {
+	public void setSuites(String suites) {
 		this.suites = suites;
 	}
 
@@ -149,20 +154,48 @@ public class House {
 		this.garage = garage;
 	}
 
-	public Double getArea() {
+	public String getArea() {
 		return area;
 	}
 
-	public void setArea(Double area) {
+	public void setArea(String area) {
 		this.area = area;
 	}
 
-	public Double getBuildingarea() {
+	public String getBuildingarea() {
 		return buildingarea;
 	}
 
-	public void setBuildingarea(Double buildingarea) {
+	public void setBuildingarea(String buildingarea) {
 		this.buildingarea = buildingarea;
+	}
+	
+	
+
+	public List<Photo> getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(List<Photo> photos) {
+		this.photos = photos;
+	}
+	
+	
+
+	public Long getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(Long clientId) {
+		this.clientId = clientId;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 	@Override

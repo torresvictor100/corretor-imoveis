@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +24,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping(path = "/district")
+@RequestMapping(path = "/districts")
 public class DistrictController {
 	
 	private final DistrictService districtService;
@@ -37,8 +38,8 @@ public class DistrictController {
 	@ApiResponses({ @ApiResponse(code = 200, message = "OK") })
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<List<District>> findAll() {
-		List<District> district = districtService.findAll();
+	public ResponseEntity<List<District>> findAll(@RequestParam(name = "name", required = false) String name) {
+		List<District> district = districtService.findAll(name);
 		return new ResponseEntity<>(district, HttpStatus.OK);
 	}
 	
@@ -56,18 +57,20 @@ public class DistrictController {
 		}
 	}
 	
-	@ApiOperation(value = "Find district by city")
-	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "Bad Request") })
-	@GetMapping(path = "city/{city_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Find a district by name")
+	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 404, message = "Not Found") })
+	@GetMapping(path = "/name/{district_name}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<List<District>> findByIdCity(@PathVariable(name = "city_id") Long id) {
-		List<District> district = districtService.findByCityId(id);
+	public ResponseEntity<District> findByName(@PathVariable(name = "district_name") String name) {
+		District district = districtService.findByName(name);
 		if (district == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
 			return new ResponseEntity<>(district, HttpStatus.OK);
 		}
 	}
+	
 	@ApiOperation(value = "Save a district")
 	@ApiResponses({ @ApiResponse(code = 201, message = "Created"), @ApiResponse(code = 400, message = "Bad Request") })
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -80,7 +83,6 @@ public class DistrictController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
 	@ApiOperation(value = "Update a district")
 	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "Bad Request"),
 			@ApiResponse(code = 404, message = "Not Found") })
@@ -104,7 +106,7 @@ public class DistrictController {
 	@ApiResponses({ @ApiResponse(code = 204, message = "No Content") })
 	@DeleteMapping(path = "/{district_id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-	public ResponseEntity<Void> deleteById(@PathVariable(name = "district_id") Long id) {
+	public ResponseEntity<Void> deleteById(@PathVariable(name = "professor_id") Long id) {
 		districtService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
@@ -117,5 +119,6 @@ public class DistrictController {
 		districtService.deleteAll();
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	
+
+
 }

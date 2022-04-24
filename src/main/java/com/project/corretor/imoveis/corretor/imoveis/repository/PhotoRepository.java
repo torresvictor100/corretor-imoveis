@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.project.corretor.imoveis.corretor.imoveis.entity.Photos;
+import com.project.corretor.imoveis.corretor.imoveis.entity.Photo;
 
 @Repository
-public interface PhotosRepository extends JpaRepository<Photos, Long> {
+public interface PhotoRepository extends JpaRepository<Photo, Long> {
 	
-	List<Photos> findByHouseId(Long houseId);
+	List<Photo> findByHouseId(Long houseId);
 
 }

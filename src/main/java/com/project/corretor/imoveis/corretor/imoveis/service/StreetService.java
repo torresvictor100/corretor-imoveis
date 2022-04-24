@@ -81,11 +81,9 @@ public class StreetService {
 		District district = districtService.findById(street.getDistrictId());
 		street.setDistrict(district);
 		
-		List<Client> clients = clientRepository.findByStreetId(street.getId());
-		street.setClient(clients);
+		List<House> houses = houseRepository.findByStreetHouseId(street.getId());
+		street.setHouses(houses);
 		
-		List<House> houses = houseRepository.findByStreetId(street.getId());
-		street.setHouse(houses);
 
         return street;
 	}

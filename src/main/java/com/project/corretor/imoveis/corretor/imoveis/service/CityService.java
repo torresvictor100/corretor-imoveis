@@ -23,8 +23,12 @@ public class CityService {
 		this.districtRepository = districtRepository;
 	}
 
-	public List<City> findAll() {
-		return cityRepository.findAll();
+	public List<City> findAll(String name) {
+		if (name == null) {
+			return cityRepository.findAll();
+		} else {
+			return cityRepository.findByNameContainingIgnoreCase(name);
+		}
 	}
 	
 	public City findById(Long id) {
@@ -38,7 +42,7 @@ public class CityService {
 	
 	public City save(City city) {
 		city.setId(null);
-
+		
 		return saveInternal(city);
 	}
 	
@@ -61,13 +65,12 @@ public class CityService {
 		cityRepository.deleteAllInBatch();
 	}
 	
-	
 	private City saveInternal(City city) {
 		city = cityRepository.save(city);
 		
-		List<District> district = districtRepository.findByCityId(city.getId());
-		city.setDistricts(district);
-
-        return city;
+		List<District> districts = districtRepository.findByCityId(city.getId());
+		city.setDistricts(districts);
+		
+		return city;
 	}
 }

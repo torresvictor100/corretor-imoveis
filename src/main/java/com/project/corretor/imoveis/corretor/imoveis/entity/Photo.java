@@ -16,8 +16,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-@Table(name = "photos")
-public class Photos {
+@Table(name = "photo")
+public class Photo {
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@Id
@@ -38,7 +38,7 @@ public class Photos {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "house_id", nullable = false, insertable = false, updatable = false)
-	@JsonIgnoreProperties({"photoss"})
+	@JsonIgnoreProperties({"photos"})
 	private House house;
 
 	public Long getId() {

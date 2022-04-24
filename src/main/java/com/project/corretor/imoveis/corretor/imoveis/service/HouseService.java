@@ -4,26 +4,30 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.project.corretor.imoveis.corretor.imoveis.entity.Client;
 import com.project.corretor.imoveis.corretor.imoveis.entity.House;
-import com.project.corretor.imoveis.corretor.imoveis.entity.Photos;
+import com.project.corretor.imoveis.corretor.imoveis.entity.Photo;
 import com.project.corretor.imoveis.corretor.imoveis.entity.Street;
 import com.project.corretor.imoveis.corretor.imoveis.repository.HouseRepository;
-import com.project.corretor.imoveis.corretor.imoveis.repository.PhotosRepository;
+import com.project.corretor.imoveis.corretor.imoveis.repository.PhotoRepository;
 
 @Service
 public class HouseService {
 	
 	private final HouseRepository houseRepository;
-	private final PhotosRepository photosRepository;
+	private final PhotoRepository photosRepository;
 	private final StreetService streetService;
+	private final ClientService clientService;
 
 	
-	public HouseService(HouseRepository houseRepository, PhotosRepository photosRepository,
-			StreetService streetService) {
+
+	public HouseService(HouseRepository houseRepository, PhotoRepository photosRepository, StreetService streetService,
+			ClientService clientService) {
 		super();
 		this.houseRepository = houseRepository;
 		this.photosRepository = photosRepository;
 		this.streetService = streetService;
+		this.clientService = clientService;
 	}
 
 	public List<House> findAll() {
@@ -31,7 +35,7 @@ public class HouseService {
 	}
 	
 	public List<House> findByStreetId(Long streetId){
-		return houseRepository.findByStreetId(streetId);
+		return houseRepository.findByStreetHouseId(streetId);
 	}
 	
 	public House findById(Long id) {
@@ -66,11 +70,15 @@ public class HouseService {
 	private House saveInternal(House house) {
 		house = houseRepository.save(house);
 		
-		Street street = streetService.findById(house.getId());
-		house.setStreet(street);
+		Street street = streetService.findById(house.getStreetHouseId());
+		house.setStreetHouse(street);
 		
-		List<Photos> photos = photosRepository.findByHouseId(house.getId());
+		Client client = clientService.findById(house.getClientId());
+		house.setClient(client);
+		
+		List<Photo> photos = photosRepository.findByHouseId(house.getId());
 		house.setPhotos(photos);
+		
 		
 		return house;
 	}

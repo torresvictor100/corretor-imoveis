@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @Table(name = "city")
 public class City {
-
+	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,13 +27,14 @@ public class City {
 	@Column(name = "name", unique = true, nullable = false,length = 50)
 	private String name;
 	
-	@Column(name = "state", unique = true, nullable = false,length = 50)
-	private String state;
+	@Column(name = "stade", nullable = false,length = 50)
+	private String stade;
+	
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@OneToMany(mappedBy = "city")
-    private List<District> districts;
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToMany(mappedBy = "city")
+	private List<District> districts;
 
 	public Long getId() {
 		return id;
@@ -51,29 +52,28 @@ public class City {
 		this.name = name;
 	}
 
-	public String getState() {
-		return state;
+	public String getStade() {
+		return stade;
 	}
 
-	public void setState(String state) {
-		this.state = state;
+	public void setStade(String stade) {
+		this.stade = stade;
 	}
+	
 
 	public List<District> getDistricts() {
 		return districts;
 	}
 
-	public void setDistricts(List<District> district) {
-		this.districts = district;
+	public void setDistricts(List<District> districts) {
+		this.districts = districts;
 	}
 
 	@Override
 	public String toString() {
-		return "City [id=" + id + ", name=" + name + ", state=" + state +"]";
+		return "City [id=" + id + ", name=" + name + ", stade=" + stade + "]";
 	}
+	
+	
 
-	
-
-	
-	
 }

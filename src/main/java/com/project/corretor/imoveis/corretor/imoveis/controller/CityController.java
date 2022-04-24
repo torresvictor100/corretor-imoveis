@@ -39,7 +39,7 @@ public class CityController {
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<List<City>> findAll(@RequestParam(name = "name", required = false) String name) {
-		List<City> city = cityService.findAll();
+		List<City> city = cityService.findAll(name);
 		return new ResponseEntity<>(city, HttpStatus.OK);
 	}
 	
@@ -50,6 +50,20 @@ public class CityController {
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<City> findById(@PathVariable(name = "city_id") Long id) {
 		City city = cityService.findById(id);
+		if (city == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<>(city, HttpStatus.OK);
+		}
+	}
+	
+	@ApiOperation(value = "Find a city by name")
+	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 404, message = "Not Found") })
+	@GetMapping(path = "/name/{city_name}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<City> findByName(@PathVariable(name = "city_name") String name) {
+		City city = cityService.findByName(name);
 		if (city == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
@@ -107,5 +121,4 @@ public class CityController {
 		cityService.deleteAll();
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-
 }

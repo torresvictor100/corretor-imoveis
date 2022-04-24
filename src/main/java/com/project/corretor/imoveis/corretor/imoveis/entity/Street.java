@@ -47,14 +47,8 @@ public class Street {
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-	@OneToMany(mappedBy = "street")
+	@OneToMany(mappedBy = "streetHouse")
     private List<House> houses;
-	
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "street")
-	private List<Client> clients;
-	
 	
 	
 	public Long getId() {
@@ -89,21 +83,6 @@ public class Street {
 		this.districtId = districtId;
 	}
 
-	public List<House> getHouse() {
-		return houses;
-	}
-
-	public void setHouse(List<House> house) {
-		this.houses = house;
-	}
-
-	public List<Client> getClient() {
-		return clients;
-	}
-
-	public void setClient(List<Client> client) {
-		this.clients = client;
-	}
 
 	public String getCep() {
 		return cep;
@@ -111,6 +90,16 @@ public class Street {
 
 	public void setCep(String cep) {
 		this.cep = cep;
+	}
+	
+
+	
+	public List<House> getHouses() {
+		return houses;
+	}
+
+	public void setHouses(List<House> houses) {
+		this.houses = houses;
 	}
 
 	@Override

@@ -14,14 +14,11 @@ import com.project.corretor.imoveis.corretor.imoveis.repository.StreetRepository
 public class DistrictService {
 	
 	private final DistrictRepository districtRepository;
-	
 	private final CityService cityService;
-	
 	private final StreetRepository streetRepository;
-
-
 	
-
+	
+	
 	public DistrictService(DistrictRepository districtRepository, CityService cityService,
 			StreetRepository streetRepository) {
 		super();
@@ -30,8 +27,16 @@ public class DistrictService {
 		this.streetRepository = streetRepository;
 	}
 
-	public List<District> findAll() {
-		return districtRepository.findAll();
+	public List<District> findAll(String name) {
+		if (name == null) {
+			return districtRepository.findAll();
+		} else {
+			return districtRepository.findByNameContainingIgnoreCase(name);
+		}
+	}
+	
+	public List<District> findByCityId(Long departmentId) {
+		return districtRepository.findByCityId(departmentId);
 	}
 	
 	public District findById(Long id) {
@@ -40,12 +45,12 @@ public class DistrictService {
 	
 	public District findByName(String name) {
 		return districtRepository.findByName(name).orElse(null);
-		
+
 	}
 	
 	public District save(District district) {
 		district.setId(null);
-
+		district.setName(district.getName());
 		return saveInternal(district);
 	}
 	
@@ -57,9 +62,18 @@ public class DistrictService {
 			return null;
 		}
 	}
+
 	
-	public List<District> findByCityId(Long districtId){
-		return districtRepository.findByCityId(districtId);
+	private District saveInternal(District district) {
+		district = districtRepository.save(district);
+
+		City city = cityService.findById(district.getCityId());
+		district.setCity(city);
+		
+		List<Street> streets = streetRepository.findByDistrictId(district.getId()); 
+		district.setStreets(streets);
+
+		return district;
 	}
 	
 	public void deleteById(Long id) {
@@ -70,17 +84,5 @@ public class DistrictService {
 
 	public void deleteAll() {
 		districtRepository.deleteAllInBatch();
-	}
-	
-	private District saveInternal(District district) {
-		district = districtRepository.save(district);
-		
-		City city = cityService.findById(district.getCityId());
-		district.setCity(city);
-		
-		List<Street> streets = streetRepository.findByDistrictId(district.getId());
-		district.setStreet(streets);
-	
-        return district;
 	}
 }

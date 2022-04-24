@@ -5,22 +5,23 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.project.corretor.imoveis.corretor.imoveis.entity.Client;
-import com.project.corretor.imoveis.corretor.imoveis.entity.Street;
+import com.project.corretor.imoveis.corretor.imoveis.entity.House;
 import com.project.corretor.imoveis.corretor.imoveis.repository.ClientRepository;
+import com.project.corretor.imoveis.corretor.imoveis.repository.HouseRepository;
 
 @Service
 public class ClientService {
 	
 	private final ClientRepository clientRepository;
 	
-	private final StreetService streetService;
+	private final HouseRepository houseRepository;
+	
+	
 
-	
-	
-	public ClientService(ClientRepository clientRepository, StreetService streetService) {
+	public ClientService(ClientRepository clientRepository, HouseRepository houseRepository) {
 		super();
 		this.clientRepository = clientRepository;
-		this.streetService = streetService;
+		this.houseRepository = houseRepository;
 	}
 
 	public List<Client> findAll() {
@@ -36,9 +37,7 @@ public class ClientService {
 		
 	}
 	
-	public List<Client> findByStreetId(Long streetId){
-		return clientRepository.findByStreetId(streetId);
-	}
+
 	
 	public Client save(Client client) {
 		client.setId(null);
@@ -69,8 +68,9 @@ public class ClientService {
 	private Client saveInternal(Client client) {
 		client = clientRepository.save(client);
 		
-		Street street = streetService.findById(client.getStreetId());
-		client.setStreet(street);
+		List<House> houses = houseRepository.findByStreetHouseId(client.getId());
+		client.setClienthouses(houses);
+	
 		
 		return client;
 	}

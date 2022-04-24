@@ -1,12 +1,13 @@
 package com.project.corretor.imoveis.corretor.imoveis.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
@@ -36,21 +37,10 @@ public class Client {
 	@Email
 	private String email;
 	
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	@Column(name = "street_id", nullable = false)
-	private Long streetId;
-	
-	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "street_id", nullable = false, insertable = false, updatable = false)
-	private Street street;
-	
-	@Column(name = "numberHouse", nullable = false, length = 6)
-	private String numberHouse;
-	
-	@Column(name = "complement")
-	private String complement;
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@OneToMany(mappedBy = "client")
+	private List<House> clienthouses;
 
 	public Long getId() {
 		return id;
@@ -84,46 +74,20 @@ public class Client {
 		this.email = email;
 	}
 
-
-	public String getNumberHouse() {
-		return numberHouse;
-	}
-
-	public void setNumberHouse(String numberHouse) {
-		this.numberHouse = numberHouse;
-	}
-
-	public Street getStreet() {
-		return street;
-	}
-
-	public void setStreet(Street street) {
-		this.street = street;
-	}
-	
 	
 
-	public Long getStreetId() {
-		return streetId;
+	public List<House> getClienthouses() {
+		return clienthouses;
 	}
 
-	public void setStreetId(Long streetId) {
-		this.streetId = streetId;
-	}
-
-	public String getComplement() {
-		return complement;
-	}
-
-	public void setComplement(String complement) {
-		this.complement = complement;
+	public void setClienthouses(List<House> clienthouses) {
+		this.clienthouses = clienthouses;
 	}
 
 	@Override
 	public String toString() {
 		return "Client [id=" + id + ", name=" + name + ", numberTelephone=" + numberTelephone + ", email=" + email
-				+", numberHouse=" + numberHouse + ", complement="
-				+ complement + "]";
+				+ "]";
 	}
 
 	

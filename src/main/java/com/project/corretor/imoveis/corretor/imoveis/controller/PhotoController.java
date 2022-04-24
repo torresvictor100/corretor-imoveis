@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.corretor.imoveis.corretor.imoveis.entity.Photos;
-import com.project.corretor.imoveis.corretor.imoveis.service.PhotosService;
+import com.project.corretor.imoveis.corretor.imoveis.entity.Photo;
+import com.project.corretor.imoveis.corretor.imoveis.service.PhotoService;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -24,11 +24,11 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping(path = "/photos")
-public class PhotosController {
+public class PhotoController {
 	
-	private final PhotosService photosService;
+	private final PhotoService photosService;
 
-	public PhotosController(PhotosService photosService) {
+	public PhotoController(PhotoService photosService) {
 		super();
 		this.photosService = photosService;
 	}
@@ -37,8 +37,8 @@ public class PhotosController {
 	@ApiResponses({ @ApiResponse(code = 200, message = "OK") })
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<List<Photos>> findAll() {
-		List<Photos> photos = photosService.findAll();
+	public ResponseEntity<List<Photo>> findAll() {
+		List<Photo> photos = photosService.findAll();
 		return new ResponseEntity<>(photos, HttpStatus.OK);
 	}
 	
@@ -47,8 +47,8 @@ public class PhotosController {
 			@ApiResponse(code = 404, message = "Not Found") })
 	@GetMapping(path = "/{photos_id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<Photos> findById(@PathVariable(name = "photos_id") Long id) {
-		Photos photos = photosService.findById(id);
+	public ResponseEntity<Photo> findById(@PathVariable(name = "photos_id") Long id) {
+		Photo photos = photosService.findById(id);
 		if (photos == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
@@ -60,7 +60,7 @@ public class PhotosController {
 	@ApiResponses({ @ApiResponse(code = 201, message = "Created"), @ApiResponse(code = 400, message = "Bad Request") })
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Photos> save(@RequestBody Photos photos) {
+	public ResponseEntity<Photo> save(@RequestBody Photo photos) {
 		try {
 			photos = photosService.save(photos);
 			return new ResponseEntity<>(photos, HttpStatus.CREATED);
@@ -74,7 +74,7 @@ public class PhotosController {
 			@ApiResponse(code = 404, message = "Not Found") })
 	@PutMapping(path = "/{photos_id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<Photos> update(@PathVariable(name = "photos_id") Long id, @RequestBody Photos photos) {
+	public ResponseEntity<Photo> update(@PathVariable(name = "photos_id") Long id, @RequestBody Photo photos) {
 		photos.setId(id);
 		try {
 			photos = photosService.update(photos);

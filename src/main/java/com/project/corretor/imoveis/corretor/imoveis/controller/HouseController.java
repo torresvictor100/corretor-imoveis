@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping(path = "/house")
+@RequestMapping(path = "/houses")
 public class HouseController {
 	
 	private final HouseService houseService;

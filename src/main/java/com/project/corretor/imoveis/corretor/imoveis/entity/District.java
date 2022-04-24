@@ -30,12 +30,10 @@ public class District {
 	@Column(name = "name", nullable = false, length = 30)
 	private String name;
 	
-	
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(name = "city_id", nullable = false)
 	private Long cityId;
 	
-
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@ManyToOne(optional = false)
@@ -43,13 +41,10 @@ public class District {
 	@JsonIgnoreProperties({"districts"})
 	private City city;
 	
-
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@OneToMany(mappedBy = "district")
-    private List<Street> streets;
-	
-	
+	private List<Street> streets;
 
 	public Long getId() {
 		return id;
@@ -67,25 +62,6 @@ public class District {
 		this.name = name;
 	}
 
-	public City getCity() {
-		return city;
-	}
-
-	public void setCity(City city) {
-		this.city = city;
-	}
-	
-	
-
-	public List<Street> getStreet() {
-		return streets;
-	}
-
-	public void setStreet(List<Street> street) {
-		this.streets = street;
-	}
-	
-
 	public Long getCityId() {
 		return cityId;
 	}
@@ -94,18 +70,29 @@ public class District {
 		this.cityId = cityId;
 	}
 
-	@Override
-	public String toString() {
-		return "District [id=" + id + ", name=" + name 
-				+ "]";
+	public City getCity() {
+		return city;
 	}
 
+	public void setCity(City city) {
+		this.city = city;
+	}
 	
+
+	public List<Street> getStreets() {
+		return streets;
+	}
+
+	public void setStreets(List<Street> streets) {
+		this.streets = streets;
+	}
+
+	@Override
+	public String toString() {
+		return "District [id=" + id + ", name=" + name + "]";
+	}
 	
 	
 
-
-	
-	
 
 }

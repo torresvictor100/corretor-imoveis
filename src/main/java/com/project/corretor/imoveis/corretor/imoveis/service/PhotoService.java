@@ -5,40 +5,40 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.project.corretor.imoveis.corretor.imoveis.entity.House;
-import com.project.corretor.imoveis.corretor.imoveis.entity.Photos;
-import com.project.corretor.imoveis.corretor.imoveis.repository.PhotosRepository;
+import com.project.corretor.imoveis.corretor.imoveis.entity.Photo;
+import com.project.corretor.imoveis.corretor.imoveis.repository.PhotoRepository;
 
 @Service
-public class PhotosService {
+public class PhotoService {
 	
-	private final PhotosRepository photosRepository;
+	private final PhotoRepository photosRepository;
 	
 	private final HouseService houseService;
 
 	
 	
-	public PhotosService(PhotosRepository photosRepository, HouseService houseService) {
+	public PhotoService(PhotoRepository photosRepository, HouseService houseService) {
 		super();
 		this.photosRepository = photosRepository;
 		this.houseService = houseService;
 	}
 
-	public List<Photos> findAll() {
+	public List<Photo> findAll() {
 		return photosRepository.findAll();
 	}
 	
-	public Photos findById(Long id) {
+	public Photo findById(Long id) {
 		return photosRepository.findById(id).orElse(null);
 	}
 	
-	public Photos save(Photos photos) {
+	public Photo save(Photo photos) {
 		photos.setId(null);
 
 		return saveInternal(photos);
 	}
 	
 	
-	public Photos update(Photos photos) {
+	public Photo update(Photo photos) {
 		Long id = photos.getId();
 		if (id != null && photosRepository.existsById(id)) {
 			return saveInternal(photos);
@@ -47,7 +47,7 @@ public class PhotosService {
 		}
 	}
 	
-	public List<Photos> findByHouseId(Long houseId){
+	public List<Photo> findByHouseId(Long houseId){
 		return photosRepository.findByHouseId(houseId);
 	}
 	
@@ -61,7 +61,7 @@ public class PhotosService {
 		photosRepository.deleteAllInBatch();
 	}
 	
-	private Photos saveInternal(Photos photos) {
+	private Photo saveInternal(Photo photos) {
 		photos = photosRepository.save(photos);
 		
 		House house = houseService.findById(photos.getId());
