@@ -27,13 +27,6 @@ public abstract class AbstractEmailService implements EmailService{
 		sendEmail(sm);
 	}
 	
-	private String garage(House house) {
-		if(house.getGarage()) {
-			return "tem garagem";
-		}else {
-			return "não garagem";
-		}
-	}
 	
 	protected SimpleMailMessage prepareSimpleMailMessageFromPedido(House house) {
 		SimpleMailMessage sm = new SimpleMailMessage();

@@ -27,10 +27,10 @@ public class Street {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "name", nullable = false, length = 50)
+	@Column(name = "name", length = 50)
 	private String name;
 	
-	@Column(name = "cep", nullable = false, length = 50)
+	@Column(name = "cep", length = 50)
 	private String cep;
 	
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

@@ -27,7 +27,7 @@ public class District {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "name", nullable = false, length = 30)
+	@Column(name = "name", length = 30)
 	private String name;
 	
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

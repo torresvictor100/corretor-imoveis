@@ -60,7 +60,7 @@ public class House {
 	@OneToMany(mappedBy = "house")
 	private List<Photo> photos;
 
-	@Column(name = "complement", nullable = true)
+	@Column(name = "complement")
 	private String complement;
 
 	@Column(name = "Room")
@@ -197,13 +197,22 @@ public class House {
 	public void setClient(Client client) {
 		this.client = client;
 	}
+	
+	private String HaveGaragem(Boolean garage) {
+		if(garage) {
+			return "tem garagem";
+		}else {
+			return"não tem garagem";
+		}
+	}
 
 	@Override
 	public String toString() {
-		return "House [id=" + id + ", streetHouseId=" + streetHouseId + ", streetHouse=" + streetHouse + ", client="
-				+ client + ", numberHouse=" + numberHouse + ", photos=" + photos + ", complement=" + complement
-				+ ", Room=" + Room + ", value=" + value + ", suites=" + suites + ", garage=" + garage + ", area=" + area
-				+ ", buildingarea=" + buildingarea + "]"+ "EAE THIAGO OLHA EU AQUI TESTANDO COMO  VOU FAZER PARA ENVIAR AUTOMATICAMENTE AS CASA QUE TU CADASTRA POR KKKKKKK";
+		return "Bem vindo"+client +"a imobiliaria Sousa leão. Sua casa foi cadastrada dados:" + ", Rua" + streetHouse + 
+				  "numero" + numberHouse + ","
+				  		+ "complemento=" + complement
+				+ ",Quartos" + Room + ", valor=" + value + ", suites=" + suites + ", garage=" + HaveGaragem(garage) + ", area total do terreno=" + area
+				+ ", area contruida =" + buildingarea + "]"+ "Imobiliaria Sousa Leão você confia a gente vende";
 	}
 
 	

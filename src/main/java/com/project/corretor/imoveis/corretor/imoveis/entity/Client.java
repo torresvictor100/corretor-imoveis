@@ -26,14 +26,14 @@ public class Client {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "name", nullable = false, length = 30)
+	@Column(name = "name", length = 30)
 	private String name;
 	
-	@Column(name = "numberTelephone", unique = false, nullable = false, length = 30)
+	@Column(name = "numberTelephone", length = 30)
 	@Size(min = 8)
 	private String numberTelephone;
 	
-	@Column(name = "email", unique = true, nullable = false, length = 50)
+	@Column(name = "email", length = 50)
 	@Email
 	private String email;
 	
