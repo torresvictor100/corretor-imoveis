@@ -1,7 +1,14 @@
 package com.project.corretor.imoveis.corretor.imoveis.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,16 +24,19 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	
 	@Column(name = "userName", unique = true, nullable = true)
 	private String userName;
-
-
-
+	
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name="PROFILES")
+	private Set<Integer> profiles = new HashSet<Integer>();
+	
+	
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(name = "password", nullable = true)
 	private String password;
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -50,7 +60,14 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
+	public Set<Profile> getProfile(){
+		return profiles.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
+	}
+	
+	public void addProfile(Profile profile) {
+		profiles.add(profile.getCod());
+	}
 
 	@Override
 	public String toString() {
