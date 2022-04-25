@@ -1,8 +1,11 @@
 package com.project.corretor.imoveis.corretor.imoveis.service;
 
+import java.net.URI;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.project.corretor.imoveis.corretor.imoveis.entity.House;
 import com.project.corretor.imoveis.corretor.imoveis.entity.Photo;
@@ -14,13 +17,17 @@ public class PhotoService {
 	private final PhotoRepository photosRepository;
 	
 	private final HouseService houseService;
+	
+	@Autowired
+	private S3Service s3Service;
 
 	
-	
+
 	public PhotoService(PhotoRepository photosRepository, HouseService houseService) {
 		super();
 		this.photosRepository = photosRepository;
 		this.houseService = houseService;
+
 	}
 
 	public List<Photo> findAll() {
@@ -68,6 +75,10 @@ public class PhotoService {
 		photos.setHouse(house);
 		
 		return photos;
+	}
+	
+	public URI savePhoto(MultipartFile multipartFile){
+		return s3Service.uploadFile(multipartFile);
 	}
 
 	

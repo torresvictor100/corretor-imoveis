@@ -1,5 +1,6 @@
 package com.project.corretor.imoveis.corretor.imoveis.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -12,8 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.project.corretor.imoveis.corretor.imoveis.entity.Photo;
 import com.project.corretor.imoveis.corretor.imoveis.service.PhotoService;
@@ -25,6 +29,7 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping(path = "/photos")
 public class PhotoController {
+	
 	
 	private final PhotoService photosService;
 
@@ -55,6 +60,17 @@ public class PhotoController {
 			return new ResponseEntity<>(photos, HttpStatus.OK);
 		}
 	}
+	
+	
+	
+	@RequestMapping(value="/photo", method=RequestMethod.POST)
+	public ResponseEntity<Void> savePhoto(@RequestParam(name="file") MultipartFile multipartFile) {
+
+			URI uri = photosService.savePhoto(multipartFile);
+			return ResponseEntity.created(uri).build();
+	}
+	
+	
 	
 	@ApiOperation(value = "Save a photos")
 	@ApiResponses({ @ApiResponse(code = 201, message = "Created"), @ApiResponse(code = 400, message = "Bad Request") })
