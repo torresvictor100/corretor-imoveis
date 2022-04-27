@@ -1,5 +1,8 @@
 package com.project.corretor.imoveis.corretor.imoveis.entity;
 
+import java.net.URI;
+import java.net.URL;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,8 +30,8 @@ public class Photo {
 	@Column(name = "discretion")
 	private String discretion;
 	
-	@Column(name = "url")
-	private String url;
+	@Column(name = "uri")
+	private URI uri;
 	
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(name = "house_id", nullable = false)
@@ -40,6 +43,12 @@ public class Photo {
 	@JoinColumn(name = "house_id", nullable = false, insertable = false, updatable = false)
 	@JsonIgnoreProperties({"photos"})
 	private House house;
+
+	
+	public Photo(Long houseId) {
+		super();
+		this.houseId = houseId;
+	}
 
 	public Long getId() {
 		return id;
@@ -57,12 +66,12 @@ public class Photo {
 		this.discretion = discretion;
 	}
 
-	public String getUrl() {
-		return url;
+	public URI getUrl() {
+		return uri;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setUrl(URI uri) {
+		this.uri = uri;
 	}
 
 	public Long getHouseId() {
@@ -83,7 +92,7 @@ public class Photo {
 
 	@Override
 	public String toString() {
-		return "Photos [id=" + id + ", discretion=" + discretion + ", url=" + url + "]";
+		return "Photos [id=" + id + ", discretion=" + discretion + ", uri=" + uri + "]";
 	}
 
 	

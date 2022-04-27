@@ -63,10 +63,10 @@ public class PhotoController {
 	
 	
 	
-	@RequestMapping(value="/photo", method=RequestMethod.POST)
-	public ResponseEntity<Void> savePhoto(@RequestParam(name="file") MultipartFile multipartFile) {
+	@RequestMapping(value="/photo/{photos_id}", method=RequestMethod.POST)
+	public ResponseEntity<Void> savePhoto(@RequestParam(name="file") MultipartFile multipartFile, @PathVariable(name = "photos_id") Long id ) {
 
-			URI uri = photosService.savePhoto(multipartFile);
+			URI uri = photosService.savePhoto(multipartFile, id);
 			return ResponseEntity.created(uri).build();
 	}
 	
@@ -94,6 +94,26 @@ public class PhotoController {
 		photos.setId(id);
 		try {
 			photos = photosService.update(photos);
+			if (photos == null) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			} else {
+				return new ResponseEntity<>(photos, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@ApiOperation(value = "Update a discretion")
+	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 404, message = "Not Found") })
+	@PutMapping(path = "/discretion/{photos_id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<Photo> updateDiscretion(@PathVariable(name = "photos_id") Long id, @RequestBody String discretion) {
+		Photo photos = photosService.findById(id);
+		
+		try {
+			photos = photosService.saveDiscretion(discretion, photos);
 			if (photos == null) {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			} else {

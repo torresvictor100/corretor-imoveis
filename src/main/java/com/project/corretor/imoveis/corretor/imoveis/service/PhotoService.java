@@ -77,8 +77,25 @@ public class PhotoService {
 		return photos;
 	}
 	
-	public URI savePhoto(MultipartFile multipartFile){
-		return s3Service.uploadFile(multipartFile);
+	//uri salvando
+
+	public URI savePhoto(MultipartFile multipartFile, Long id){
+		
+		Photo photo = findById(id);
+		URI uri = s3Service.uploadFile(multipartFile);
+		photo.setUrl(uri);
+		update(photo);
+		
+		return uri;
+	}
+	
+		//Salvando o Discretion
+	public Photo saveDiscretion(String discretion, Photo photos) {
+		photos.setDiscretion(discretion);
+		update(photos);
+		
+		return photos;
+		
 	}
 
 	
